@@ -42,11 +42,15 @@ print(df.info())
 print(df.head())
 
 # Находим категориальные колонки и используем LabelEncoder для перевода в численные значения
-cat_columns = [cname for cname in df.columns if df[cname].dtype == "object"]
 encoder = preprocessing.LabelEncoder()
+df['cut'] = encoder.fit_transform(df['cut'])
+df['color'] = encoder.fit_transform(df['color'])
+df['clarity'] = encoder.fit_transform(df['clarity'])
 
-for col in cat_columns:
-    df[col] = encoder.fit_transform(df[col])
+# cat_columns = [cname for cname in df.columns if df[cname].dtype == "object"]
+# encoder = preprocessing.LabelEncoder()
+# for col in cat_columns:
+#     df[col] = encoder.fit_transform(df[col])
 
 print(df.head())
 
