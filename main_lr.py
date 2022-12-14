@@ -1,4 +1,4 @@
-from sklearn.model_selection import train_test_split, cross_val_score
+from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import accuracy_score
 from sklearn import preprocessing
@@ -68,9 +68,7 @@ print(y_pred)
 
 print(lr.score(X_test, y_test))
 
-df2 = pd.DataFrame()
+import matplotlib.pyplot as plt
 
-df2['y_test']=y_test
-df2['y_pred']=y_pred
-
-print(df2[['y_test', 'y_pred']])
+plt.plot(X_test, y_pred)
+plt.show()
