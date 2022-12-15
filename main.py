@@ -1,13 +1,14 @@
+#Подключаем библиотеки
 from sklearn.model_selection import train_test_split, cross_val_score
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import accuracy_score
 from sklearn import preprocessing
-
 import pandas as pd
 
+#подключаем датасет
 df = pd.read_csv('diamonds_moded.csv', sep=';')
-print(df.info())
 
+print(df.info())
 print(df.head())
 
 # Проверим наличие пропусков в данных
@@ -41,11 +42,19 @@ print(df.info())
 
 print(df.head())
 
-# Находим категориальные колонки и используем LabelEncoder для перевода в численные значения
+# Находим категориальные колонки 
+print(df.info())
+
+#и используем LabelEncoder для перевода в численные значения
 encoder = preprocessing.LabelEncoder()
 df['cut'] = encoder.fit_transform(df['cut'])
 df['color'] = encoder.fit_transform(df['color'])
 df['clarity'] = encoder.fit_transform(df['clarity'])
+
+#убеждаемся, что все данные в числовом формате
+print(df.info())
+print(df.head())
+
 
 # cat_columns = [cname for cname in df.columns if df[cname].dtype == "object"]
 # encoder = preprocessing.LabelEncoder()
@@ -54,18 +63,22 @@ df['clarity'] = encoder.fit_transform(df['clarity'])
 
 print(df.head())
 
+#выделям основные данные и целевой признак
 X = df.drop('price', axis=1)
 y = df['price']
+
+#разделяем данные на тренировочные и тестовые
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
 
+#тренируем модель
 lr = LinearRegression()
-
 lr.fit(X_train, y_train)
 
+#делаем предсказания
 y_pred = lr.predict(X_test)
-
 print(y_pred)
 
+#узнаём качество предсказаний
 print(lr.score(X_test, y_test))
 
 df2 = pd.DataFrame()
@@ -74,3 +87,8 @@ df2['y_test']=y_test
 df2['y_pred']=y_pred
 
 print(df2[['y_test', 'y_pred']])
+
+import matplotlib.pyplot as plt
+
+plt.plot(1,1)
+plt.show()
